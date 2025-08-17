@@ -1,0 +1,63 @@
+.showcase_container {
+    width: 100wh;
+    height: calc(100vh - 70px);
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)),
+        url('/assets/clark-sm.webp');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    .hero-content {
+        h1 {
+            color: var(--surface);
+            font-size: 8dvw;
+        }
+
+        p {
+            color: var(--surface);
+            font-size: 4dvw;
+            margin: 1rem 0;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 45vw;
+            font-size: .8rem;
+
+            :hover {
+                background: var(--secondary);
+            }
+        }
+    }
+}
+
+
+@media (min-width: 768px) {
+
+    .hero-content {
+        text-align: center;
+        h1 {
+            font-size: 4dvw !important;
+        }
+
+        p {
+            font-size: 2dvw !important;
+        }
+
+        button {
+            margin: 1rem 0;
+           width: 15vw !important;
+           
+           font-size: 1.2rem !important;
+        }
+    }
+
+}

@@ -1,0 +1,33 @@
+.shop-container {
+    background: var(--background);
+    display: grid;
+    grid-template-areas: 
+        "filter"
+        "products"
+        "pagination";
+    gap: 1rem;
+    padding: 1rem;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+    .shop-container {
+        padding: 1.5rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    .shop-container {
+        grid-template-columns: 200px 1fr 1fr 1fr 1fr;
+        grid-template-areas:
+            "filter products products products products"
+            "pagination pagination pagination pagination pagination";
+        gap: 2rem;
+        padding: 2rem;
+        align-items: start;
+        min-height: 100vh;
+    }
+}

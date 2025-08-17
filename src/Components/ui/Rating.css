@@ -1,0 +1,95 @@
+/* Rating Component Styles */
+.rating-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.stars-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.star {
+    font-size: 1.2rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.star-filled {
+    color: #ffd700;
+    filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.3));
+}
+
+.star-half {
+    color: #ffd700;
+    filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.3));
+}
+
+.star-empty {
+    color: #e0e0e0;
+}
+
+.rating-text {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+    margin-left: 4px;
+}
+
+/* Hover effects */
+.rating-container:hover .star {
+    transform: scale(1.1);
+}
+
+.rating-container:hover .star-filled,
+.rating-container:hover .star-half {
+    color: #ffed4a;
+    filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.4));
+}
+
+/* Responsive sizing */
+@media (max-width: 768px) {
+    .star {
+        font-size: 1rem;
+    }
+    
+    .rating-text {
+        font-size: 0.8rem;
+    }
+}
+
+/* Alternative color schemes */
+.rating-container.orange-theme .star-filled,
+.rating-container.orange-theme .star-half {
+    color: #ff8c00;
+}
+
+.rating-container.red-theme .star-filled,
+.rating-container.red-theme .star-half {
+    color: #ff6b6b;
+}
+
+.rating-container.blue-theme .star-filled,
+.rating-container.blue-theme .star-half {
+    color: #4ecdc4;
+}
+
+/* Large variant */
+.rating-container.large .star {
+    font-size: 1.5rem;
+}
+
+.rating-container.large .rating-text {
+    font-size: 1rem;
+}
+
+/* Small variant */
+.rating-container.small .star {
+    font-size: 1rem;
+}
+
+.rating-container.small .rating-text {
+    font-size: 0.75rem;
+}

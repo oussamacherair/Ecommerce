@@ -1,0 +1,26 @@
+
+
+
+:root {
+  --primary: #0066cc;      /* Navigation, links, primary buttons */
+  --secondary: #00cc66;    /* Add to Cart, Buy Now buttons */
+  --accent: #66b3ff;       /* Highlights, badges */
+  --background: #f8fafc;   /* Page background */
+  --surface: #ffffff;      /* Product cards, modals */
+  --text-primary: #2d3748; /* Product titles, descriptions */
+  --text-secondary: #718096; /* Prices, meta info */
+  --success: #38a169;      /* Success messages */
+  --warning: #ed8936;      /* Stock warnings */
+  --error: #e53e3e;        /* Error states */
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body{
+  background-color: var(--background);
+}
