@@ -2,7 +2,8 @@
 import FilterGroup from './FilterGroup';
 import "./Filters.css"
 
-const Filters = () => {
+const Filters = ({category, onCategoryChange}:{category:string | null, onCategoryChange:(value:string) => void}) => {
+
  const groupedCategories = [
   {
     name: "Women's Fashion",
@@ -65,7 +66,8 @@ const Filters = () => {
 
   return (
     <div className='filters-container'>
-      <FilterGroup filters={groupedCategories}  />
+      <FilterGroup category={category} onCategoryChange={onCategoryChange} filters={groupedCategories}  />
+
     </div>
   )
 }

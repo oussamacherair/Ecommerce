@@ -69,6 +69,8 @@ export interface ApiResponse {
     total: number;      // total number of products
     skip: number;        // current skip value
     limit: number;
+    category?: string;
+
   },
 }
 
@@ -96,3 +98,10 @@ export type Category = {
   type: string;
   options: CategoryOption[];
 };
+export type Dimensions = {
+
+  width: number;
+  height: number;
+  depth: number;
+}
+

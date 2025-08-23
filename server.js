@@ -102,7 +102,7 @@ async function getProducts(limit = 10, skip = 0) {
             return cached;
         }
 
-        const { data } = await apiClient.get(`/products?limit=${limit}&skip=${skip}`);
+        const { data } = await apiClient.get(`/products?limit=${limit}&skip=${skip}&sortBy=title&order=asc`);
 
         // Cache for 10 minutes
         cache.set(cacheKey, data, 600);
@@ -114,6 +114,64 @@ async function getProducts(limit = 10, skip = 0) {
         throw new Error('Failed to fetch products');
     }
 }
+
+/*** get products by category with cashing */
+
+async function getProductsByCategory(category) {
+    const cacheKey = `products_by_category_${category}`;
+
+    const cached = cache.get(cacheKey);
+    if (cached) {
+        console.log('Products served from cache');
+        return cached;
+    }
+
+    try {
+        const { data } = await apiClient.get(`/products/category/${category}`);
+
+
+        // Cache for 1 hour (products don't change often)
+        cache.set(cacheKey, data, 360);
+        console.log('Products fetched from API and cached');
+
+        return data;
+    } catch (error) {
+        console.error('Error fetching products:', error.message);
+        throw new Error('Failed to fetch products');
+    }
+
+
+
+
+}
+
+/*****get product by category with cashing */
+async function getProductByCategory(category) {
+    const cacheKey = `product_by_category_${category}`;
+    // Check cache first
+    const cached = cache.get(cacheKey);
+    if (cached) {
+        console.log('Products served from cache');
+        return cached;
+    }
+
+    try {
+        const { data } = await apiClient.get(`/products/category/${category}`);
+
+        // Cache for 1 hour (products don't change often)
+        cache.set(cacheKey, data, 3600);
+        console.log('Products fetched from API and cached');
+
+        return data;
+    } catch (error) {
+        console.error('Error fetching products:', error.message);
+        throw new Error('Failed to fetch products');
+    }
+
+
+}
+
+
 
 /** Trending Products with caching */
 async function getTrendingProducts(category) {
@@ -155,11 +213,14 @@ app.get("/categories", async (req, res) => {
     }
 });
 
-app.get("/product/:id", async (req, res) => {
-    const { id } = req.params;
+app.get("/product/:category/:id", async (req, res) => {
+    const { category, id } = req.params;
     try {
         const product = await getProductById(id);
-        res.json({ data: product });
+        let similarProducts = await getProductByCategory(category)
+        similarProducts = similarProducts.products.filter((product) => product.id != id);
+
+        res.json({ data: product, similarProducts: similarProducts });
     } catch (error) {
         console.error('Product endpoint error:', error.message);
         res.status(500).json({
@@ -170,8 +231,25 @@ app.get("/product/:id", async (req, res) => {
     }
 });
 
+app.get("/products/category/:category", async (req, res) => {
+    const { category } = req.params
+    try {
+        const products = await getProductsByCategory(category)
+
+        res.json({ data: products, category })
+    } catch (error) {
+        console.error('Products endpoint error:', error.message);
+        res.status(500).json({
+            error: 'Failed to fetch products',
+            message: error.message
+        });
+    }
+
+})
 
 app.get("/products", async (req, res) => {
+
+
     const { limit, skip } = req.query;
 
     try {

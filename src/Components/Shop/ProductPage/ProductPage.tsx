@@ -16,46 +16,13 @@ import {
 } from 'react-icons/fa';
 import './ProductPage.css';
 import axios from 'axios';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import { type ResponseState } from '../../../types/types';
 
-interface Dimensions {
-  width: number;
-  height: number;
-  depth: number;
-}
-
-interface Review {
-  rating: number;
-  comment: string;
-  date: string;
-  reviewerName: string;
-  reviewerEmail: string;
-}
-
-interface Product {
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  tags: string[];
-  brand: string;
-  sku: string;
-  weight: number;
-  dimensions: Dimensions;
-  warrantyInformation: string;
-  shippingInformation: string;
-  availabilityStatus: string;
-  reviews: Review[];
-  returnPolicy: string;
-  minimumOrderQuantity: number;
-  images: string[];
-  thumbnail: string;
-}
+import SimilarProduct from '../../ui/SimilarProduct';
+import { type Review } from '../../../types/types';
+import { type Dimensions } from '../../../types/types';
+import Rating from '../../ui/Rating';
 
 const ProductPage: React.FC = () => {
   const [quantity, setQuantity] = React.useState(1);
@@ -69,7 +36,8 @@ const ProductPage: React.FC = () => {
 
   const getProduct = async () => {
     try {
-      const result = await axios.get(`/api/product/${productId}`);
+      const result = await axios.get(`/api/product/${category}/${productId}`);
+
       setProduct({
         data: result.data,
         loading: false,
@@ -112,8 +80,9 @@ const ProductPage: React.FC = () => {
     );
   }
 
-  const { data: product } = productData?.data;
+  const { data: product,similarProducts } = productData?.data;
   
+
   if (!product) {
     return (
       <div className='container'>
@@ -124,33 +93,15 @@ const ProductPage: React.FC = () => {
     );
   }
 
-  const productInfo = product;
-  const discountedPrice = productInfo.price - (productInfo.price * productInfo.discountPercentage / 100);
+  
+  const discountedPrice = product.price - (product.price * product.discountPercentage / 100);
 
-  const renderStars = (rating: number) => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
+ console.log(product.rating,product)
 
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(<FaStar key={i} className="star filled" />);
-    }
-
-    if (hasHalfStar) {
-      stars.push(<FaStarHalfAlt key="half" className="star filled" />);
-    }
-
-    const remainingStars = 5 - Math.ceil(rating);
-    for (let i = 0; i < remainingStars; i++) {
-      stars.push(<FaRegStar key={`empty-${i}`} className="star" />);
-    }
-
-    return stars;
-  };
 
   const handleQuantityChange = (change: number) => {
     const newQuantity = quantity + change;
-    if (newQuantity >= 1 && newQuantity <= productInfo.stock) {
+    if (newQuantity >= 1 && newQuantity <= product.stock) {
       setQuantity(newQuantity);
     }
   };
@@ -158,7 +109,7 @@ const ProductPage: React.FC = () => {
   const handleImageNavigation = (direction: 'prev' | 'next') => {
     if (direction === 'prev' && currentImageIndex > 0) {
       setCurrentImageIndex(currentImageIndex - 1);
-    } else if (direction === 'next' && currentImageIndex < productInfo.images.length - 1) {
+    } else if (direction === 'next' && currentImageIndex < product.images.length - 1) {
       setCurrentImageIndex(currentImageIndex + 1);
     }
   };
@@ -175,12 +126,12 @@ const ProductPage: React.FC = () => {
           <div className="product-image">
             <div className="image-gallery">
               <img 
-                src={productInfo.images[currentImageIndex]} 
-                alt={productInfo.title} 
+                src={product.images[currentImageIndex]} 
+                alt={product.title} 
                 className="main-image"
               />
               
-              {productInfo.images.length > 1 && (
+              {product.images.length > 1 && (
                 <>
                   <button
                     className="image-navigation prev-btn"
@@ -192,7 +143,7 @@ const ProductPage: React.FC = () => {
                   <button
                     className="image-navigation next-btn"
                     onClick={() => handleImageNavigation('next')}
-                    disabled={currentImageIndex === productInfo.images.length - 1}
+                    disabled={currentImageIndex === product.images.length - 1}
                   >
                     <FaChevronRight />
                   </button>
@@ -201,13 +152,13 @@ const ProductPage: React.FC = () => {
             </div>
 
             {/* Thumbnail Images */}
-            {productInfo.images.length > 1 && (
+            {product.images.length > 1 && (
               <div className="thumbnail-container">
-                {productInfo.images.map((image, index) => (
+                {product.images.map((image, index) => (
                   <img
                     key={index}
                     src={image}
-                    alt={`${productInfo.title} ${index + 1}`}
+                    alt={`${product.title} ${index + 1}`}
                     className={`thumbnail ${index === currentImageIndex ? 'active' : ''}`}
                     onClick={() => handleThumbnailClick(index)}
                   />
@@ -227,41 +178,37 @@ const ProductPage: React.FC = () => {
 
           <div className="product-info">
             <div className="product-header">
-              <span className="brand">{productInfo.brand}</span>
-              <h1 className="product-title">{productInfo.title}</h1>
+              <span className="brand">{product.brand}</span>
+              <h1 className="product-title">{product.title}</h1>
 
               <div className="rating-section">
-                <div className="stars">
-                  {renderStars(productInfo.rating)}
-                </div>
-                <span className="rating-text">
-                  ({productInfo.rating}) • {productInfo.reviews.length} reviews
-                </span>
+                <Rating rating={product.rating} />
+
               </div>
 
               <div className="price-section">
                 <span className="current-price">${discountedPrice.toFixed(2)}</span>
-                <span className="original-price">${productInfo.price.toFixed(2)}</span>
-                <span className="discount">-{productInfo.discountPercentage.toFixed(0)}%</span>
+                <span className="original-price">${product.price.toFixed(2)}</span>
+                <span className="discount">-{product.discountPercentage.toFixed(0)}%</span>
               </div>
             </div>
 
             <div className="product-description">
-              <p>{productInfo.description}</p>
+              <p>{product.description}</p>
             </div>
 
             <div className="product-features">
               <div className="feature">
                 <FaShippingFast className="feature-icon" />
-                <span>{productInfo.shippingInformation}</span>
+                <span>{product.shippingInformation}</span>
               </div>
               <div className="feature">
                 <FaShieldAlt className="feature-icon" />
-                <span>{productInfo.warrantyInformation}</span>
+                <span>{product.warrantyInformation}</span>
               </div>
               <div className="feature">
                 <FaBox className="feature-icon" />
-                <span>{productInfo.stock} in stock</span>
+                <span>{product.stock} in stock</span>
               </div>
             </div>
 
@@ -279,7 +226,7 @@ const ProductPage: React.FC = () => {
                 <button
                   className="quantity-btn"
                   onClick={() => handleQuantityChange(1)}
-                  disabled={quantity >= productInfo.stock}
+                  disabled={quantity >= product.stock}
                 >
                   <FaPlus />
                 </button>
@@ -301,21 +248,21 @@ const ProductPage: React.FC = () => {
               <div className="details-grid">
                 <div className="detail">
                   <span className="label">SKU:</span>
-                  <span>{productInfo.sku}</span>
+                  <span>{product.sku}</span>
                 </div>
                 <div className="detail">
                   <span className="label">Weight:</span>
-                  <span>{productInfo.weight}g</span>
+                  <span>{product.weight}g</span>
                 </div>
                 <div className="detail">
                   <span className="label">Dimensions:</span>
                   <span>
-                    {productInfo.dimensions.width} × {productInfo.dimensions.height} × {productInfo.dimensions.depth} cm
+                    {product.dimensions.width} × {product.dimensions.height} × {product.dimensions.depth} cm
                   </span>
                 </div>
                 <div className="detail">
                   <span className="label">Return Policy:</span>
-                  <span>{productInfo.returnPolicy}</span>
+                  <span>{product.returnPolicy}</span>
                 </div>
               </div>
             </div>
@@ -326,11 +273,12 @@ const ProductPage: React.FC = () => {
         <div className="reviews-section">
           <h3>Customer Reviews</h3>
           <div className="reviews-list">
-            {productInfo.reviews.map((review, index) => (
+            {product.reviews.map((review, index) => (
               <div key={index} className="review">
                 <div className="review-header">
                   <div className="review-rating">
-                    {renderStars(review.rating)}
+                    <Rating rating={review.rating} />
+
                   </div>
                   <span className="reviewer-name">{review.reviewerName}</span>
                 </div>
@@ -348,23 +296,16 @@ const ProductPage: React.FC = () => {
           <h3>Similar Products</h3>
           <div className="similar-products-grid">
             {/* This section is ready for when you implement similar products */}
-            <div className="similar-product-card" style={{opacity: 0.5}}>
-              <div className="similar-product-image">
-                <div style={{
-                  height: '100%',
-                  background: '#f0f0f0',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#999'
-                }}>
-                  Similar products will appear here
-                </div>
-              </div>
-            </div>
+            {similarProducts.map((product) => (
+              <Link to={`/shop/${product.category}/${product.title}/${product.id}`}>
+                <SimilarProduct key={product.id} product={product} />
+              </Link>
+            ))} 
+
           </div>
         </div>
       </div>
+    
     </div>
   );
 };

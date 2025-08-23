@@ -46,12 +46,13 @@ const Categories = ({ categories, loading, error }: { categories: ApiResponse | 
       </div>
     );
   }
+  
 
   return (
     <div>
       <div className='Categories-container'>
         {categoriesList?.map((category:BaseCategory, index:number) => (
-          <Link to={`/shop/category/${category.url}`} key={`category-${index}`}>
+          <Link to={`/shop/${category.slug}`} key={`category-${index}`}>
             <Categorie
               key={`category-${index}`}
               categorie={category}

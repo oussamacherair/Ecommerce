@@ -103,7 +103,7 @@ const Home = () => {
   const { data: ProductList, loading: ProductLoading, error: ProductError } = TrendProducts
 
 
-  console.log(ProductList, " ProductList")
+ 
 
   return (
     <div className="home-page">

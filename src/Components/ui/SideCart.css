@@ -1,0 +1,358 @@
+/* AmazonBuybox.css */
+.buybox-container {
+  max-width: 350px;
+  padding: 20px;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-family: "Amazon Ember", Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Price Section */
+.price-section {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.currency {
+  font-size: 18px;
+  color: #565959;
+  margin-right: 2px;
+}
+
+.price-whole {
+  font-size: 28px;
+  color: #0f1111;
+  font-weight: 400;
+}
+
+.price-decimal {
+  font-size: 18px;
+  color: #0f1111;
+}
+
+.price-fraction {
+  font-size: 18px;
+  color: #0f1111;
+}
+
+/* Shipping Section */
+.shipping-section {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.shipping-cost {
+  font-size: 14px;
+  color: #565959;
+  margin-right: 8px;
+}
+
+.details-btn {
+  background: none;
+  border: none;
+  color: #007185;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.details-btn:hover {
+  color: #c7511f;
+}
+
+.info-icon {
+  font-size: 12px;
+}
+
+.shipping-details {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  margin-top: 8px;
+}
+
+.shipping-details h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.fee-breakdown {
+  font-size: 14px;
+}
+
+.fee-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.fee-item.total {
+  font-weight: bold;
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+/* Delivery Section */
+.delivery-section {
+  margin-bottom: 16px;
+  padding: 12px 0;
+  border-top: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.delivery-date {
+  font-size: 14px;
+  color: #0f1111;
+  margin-bottom: 8px;
+}
+
+.delivery-location {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #007185;
+  cursor: pointer;
+}
+
+.delivery-location:hover {
+  color: #c7511f;
+}
+
+.location-icon {
+  margin-right: 6px;
+  font-size: 12px;
+}
+
+/* Availability Section */
+.availability-section {
+  margin-bottom: 16px;
+}
+
+.stock-info {
+  color: #b12704;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Quantity Section */
+.quantity-section {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quantity-section label {
+  font-size: 14px;
+  color: #0f1111;
+  font-weight: bold;
+}
+
+.quantity-select {
+  padding: 6px 24px 6px 8px;
+  border: 1px solid #a6a6a6;
+  border-radius: 4px;
+  background-color: #f7fafa;
+  color: #0f1111;
+  font-size: 14px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 8px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+.quantity-select:focus {
+  outline: none;
+  border-color: #007185;
+  box-shadow: 0 0 3px 2px rgba(228, 121, 17, 0.5);
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.add-to-cart-btn {
+  background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
+  border: 1px solid #a88734;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #0f1111;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+  background: linear-gradient(to bottom, #f5d78e, #edb82f);
+  border-color: #9c7e31;
+}
+
+.add-to-cart-btn:active {
+  background: linear-gradient(to bottom, #f2d373, #e9b826);
+  border-color: #846a29;
+}
+
+.buy-now-btn {
+  background: linear-gradient(to bottom, #ff9f43, #ff8f00);
+  border: 1px solid #cc7a00;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.buy-now-btn:hover {
+  background: linear-gradient(to bottom, #ff9530, #ff8600);
+  border-color: #b86f00;
+}
+
+.buy-now-btn:active {
+  background: linear-gradient(to bottom, #ff8b1d, #ff7d00);
+  border-color: #a66200;
+}
+
+.btn-icon {
+  font-size: 16px;
+}
+
+/* Product Details */
+.product-details {
+  border-top: 1px solid #e7e7e7;
+  padding-top: 16px;
+  margin-bottom: 16px;
+}
+
+.detail-item {
+  display: flex;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.detail-label {
+  color: #565959;
+  min-width: 80px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.detail-value {
+  color: #0f1111;
+  flex-grow: 1;
+}
+
+.seller-link,
+.return-link,
+.gift-link {
+  color: #007185;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.seller-link:hover,
+.return-link:hover,
+.gift-link:hover {
+  color: #c7511f;
+  text-decoration: underline;
+}
+
+.gift-icon {
+  font-size: 12px;
+}
+
+.secure-icon {
+  color: #00a652;
+  margin-right: 4px;
+  font-size: 12px;
+}
+
+/* Wishlist Section */
+.wishlist-section {
+  border-top: 1px solid #e7e7e7;
+  padding-top: 16px;
+}
+
+.wishlist-btn {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #0f1111;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.wishlist-btn:hover {
+  background: #f7fafa;
+  border-color: #a6a6a6;
+}
+
+.wishlist-btn:active {
+  background: #ededed;
+}
+
+.heart-icon {
+  font-size: 14px;
+  color: #cc0c39;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .buybox-container {
+    max-width: 100%;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
+  
+  .shipping-details {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+  }
+}

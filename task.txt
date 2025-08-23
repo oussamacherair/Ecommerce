@@ -1,4 +1,11 @@
-1 finsich pagination for mobile and desktop
-2 Product page with routing
-3 similer products in product page
- 2 h max
+get country api with holidays https://date.nager.at/Api
+    1 get user country by api or geo and use localstorgra or cookies to store it
+make the cart componst and adding and removing function
+fix the routing error (productname)
+
+
+if you can
+
+supabase auth for signup page and singin
+
+
