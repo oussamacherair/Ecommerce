@@ -1,3 +1,4 @@
+// types.ts
 export interface ProductType {
   id: number;
   title: string;
@@ -11,11 +12,7 @@ export interface ProductType {
   brand: string;
   sku: string;
   weight: number;
-  dimensions: {
-    width: number;
-    height: number;
-    depth: number;
-  };
+  dimensions: Dimensions;
   warrantyInformation: string;
   shippingInformation: string;
   availabilityStatus: string;
@@ -40,68 +37,47 @@ export interface Review {
   reviewerEmail: string;
 }
 
-export interface ProductCardProps {
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  tags: string[];
-  brand: string;
-  availabilityStatus: string;
-  thumbnail: string;
-}
-
 export interface BaseCategory {
-  slug: string
-  name: string
-  url: string
+  slug: string;
+  name: string;
+  url: string;
 }
 
-export interface ApiResponse {
-  success: boolean;
-  data: {
-    data: BaseCategory[] | ProductType[],
-    success: boolean,
-    total: number;      // total number of products
-    skip: number;        // current skip value
-    limit: number;
-    category?: string;
+export interface Dimensions {
+  width: number;
+  height: number;
+  depth: number;
+}
 
-  },
+// Fix the ApiResponse structure - remove nested data
+export interface ApiResponse {
+  data: BaseCategory[] | ProductType[];
+  success: boolean;
+  total: number;
+  skip: number;
+  limit: number;
+  category?: string;
 }
 
 export interface ResponseState {
   data: ApiResponse | null;
   loading: boolean;
   error: string | null;
-  success?: boolean
+  success?: boolean;
 }
 
-export interface CachedCategories {
-  data: BaseCategory[]
-  timestamp: number
-  expiry: number
+// Add missing interfaces
+export interface FilterGroupProps {
+  category: string;
+  filters: any;
+  onCategoryChange: (category: string) => void;
 }
 
-
-type CategoryOption = {
-  label: string;
-  value: string;
-};
-
-export type Category = {
-  name: string;
-  type: string;
-  options: CategoryOption[];
-};
-export type Dimensions = {
-
-  width: number;
-  height: number;
-  depth: number;
+export interface SimilarProductProps {
+  product: ProductType;
 }
 
+export interface ProductShowCaseProps {
+  title?: string;
+  limit?: number;
+}

@@ -81,7 +81,8 @@ const Shop = () => {
   }, [GetProductList,categoryName])
 
 
-  const { data: products, loading, error } = ProductsList
+  const { data: products, loading, error } = ProductsList as { data: ApiResponse, loading: boolean, error: null | string };
+
   const total = products?.data?.total;
   const skip = products?.data?.skip;
   const limit = products?.data?.limit;
