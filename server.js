@@ -202,7 +202,7 @@ async function getTrendingProducts(category) {
 app.get("/categories", async (req, res) => {
     try {
         const categories = await getCategories();
-        res.json({ success: true, data: categories });
+        res.json({ data: categories });
     } catch (error) {
         console.error('Categories endpoint error:', error.message);
         res.status(500).json({
@@ -254,7 +254,7 @@ app.get("/products", async (req, res) => {
 
     try {
         const products = await getProducts(limit, skip);
-        res.json({ success: true, data: products });
+        res.json({ data: products });
     } catch (error) {
         console.error('Products endpoint error:', error.message);
         res.status(500).json({

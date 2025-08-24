@@ -1,5 +1,27 @@
-// types.ts
-export interface ProductType {
+// Base interfaces for product data
+interface ProductDimensions {
+  width: number;
+  height: number;
+  depth: number;
+}
+
+interface ProductReview {
+  rating: number;
+  comment: string;
+  date: string;
+  reviewerName: string;
+  reviewerEmail: string;
+}
+
+interface ProductMeta {
+  createdAt: string;
+  updatedAt: string;
+  barcode: string;
+  qrCode: string;
+}
+
+// Main Product interface
+interface Product {
   id: number;
   title: string;
   description: string;
@@ -12,72 +34,78 @@ export interface ProductType {
   brand: string;
   sku: string;
   weight: number;
-  dimensions: Dimensions;
+  dimensions: ProductDimensions;
   warrantyInformation: string;
   shippingInformation: string;
   availabilityStatus: string;
-  reviews: Review[];
+  reviews: ProductReview[];
   returnPolicy: string;
   minimumOrderQuantity: number;
-  meta: {
-    createdAt: string;
-    updatedAt: string;
-    barcode: string;
-    qrCode: string;
-  };
+  meta: ProductMeta;
   images: string[];
   thumbnail: string;
 }
 
-export interface Review {
-  rating: number;
-  comment: string;
-  date: string;
-  reviewerName: string;
-  reviewerEmail: string;
-}
-
-export interface BaseCategory {
+// Category interface
+interface Category {
   slug: string;
   name: string;
   url: string;
 }
 
-export interface Dimensions {
-  width: number;
-  height: number;
-  depth: number;
-}
-
-// Fix the ApiResponse structure - remove nested data
-export interface ApiResponse {
-  data: BaseCategory[] | ProductType[];
-  success: boolean;
+// Paginated products response
+interface PaginatedProductsResponse {
+  products: Product[];
   total: number;
   skip: number;
   limit: number;
-  category?: string;
 }
 
-export interface ResponseState {
-  data: ApiResponse | null;
+// Generic API Response wrapper
+interface ApiResponse<T = any> {
+  data?: T;
   loading: boolean;
-  error: string | null;
-  success?: boolean;
+  error?: string | null;
 }
 
-// Add missing interfaces
-export interface FilterGroupProps {
-  category: string;
-  filters: any;
-  onCategoryChange: (category: string) => void;
+// Specific API response types
+type ProductsApiResponse = ApiResponse<PaginatedProductsResponse>;
+type SingleProductApiResponse = ApiResponse<Product>;
+type CategoriesApiResponse = ApiResponse<Category[]>;
+
+// Union type for all possible API responses
+type AllApiResponses = ProductsApiResponse | SingleProductApiResponse | CategoriesApiResponse;
+
+// Example usage and type guards
+function isProductsResponse(response: ApiResponse): response is ProductsApiResponse {
+  return response.data && 'products' in response.data;
 }
 
-export interface SimilarProductProps {
-  product: ProductType;
+function isSingleProductResponse(response: ApiResponse): response is SingleProductApiResponse {
+  return response.data && 'id' in response.data && 'title' in response.data;
 }
 
-export interface ProductShowCaseProps {
-  title?: string;
-  limit?: number;
+function isCategoriesResponse(response: ApiResponse): response is CategoriesApiResponse {
+  return response.data && Array.isArray(response.data) && response.data.length > 0 && 'slug' in response.data[0];
 }
+
+// Export all types
+export type {
+  Product,
+  ProductDimensions,
+  ProductReview,
+  ProductMeta,
+  Category,
+  PaginatedProductsResponse,
+  ApiResponse,
+  ProductsApiResponse,
+  SingleProductApiResponse,
+  CategoriesApiResponse,
+  AllApiResponses
+};
+
+export {
+  isProductsResponse,
+  isSingleProductResponse,
+  isCategoriesResponse
+};

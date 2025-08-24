@@ -5,7 +5,7 @@ import Product from './product'
 import type { ApiResponse } from '../../../types/types'
 import { Link } from 'react-router'
 const Products = ({ Products, loading, error }: { Products: ApiResponse, loading: boolean, error: string | null }) => {
-
+console.log(Products," products")
     if (loading) {
         return (
             <div className='container'>
