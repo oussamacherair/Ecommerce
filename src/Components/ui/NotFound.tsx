@@ -1,5 +1,4 @@
 // NotFound.jsx
-import React from 'react';
 
 import './NotFound404.css';
 import { Link } from 'react-router';

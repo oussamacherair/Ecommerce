@@ -66,7 +66,7 @@ const Filters = ({category, onCategoryChange}:{category:string | null, onCategor
 
   return (
     <div className='filters-container'>
-      <FilterGroup category={category} onCategoryChange={onCategoryChange} filters={groupedCategories}  />
+      <FilterGroup category={category || ''} onCategoryChange={onCategoryChange} filters={groupedCategories}  />
 
     </div>
   )

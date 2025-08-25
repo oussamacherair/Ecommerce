@@ -1,6 +1,3 @@
-import { useEffect, useId, useState } from 'react'
-
-import axios from 'axios'
 import type { ApiResponse,} from '../../types/types';
 import TrendingCategory from './TrendingCategory';
 import TrendingSkeleton from './TrendingSkeleton';
@@ -24,13 +21,13 @@ export default function ProductShowCase ({productList,loading,error}:{productLis
     if (error) {
         return <div>{error}</div>
     }
-     const {data:productData,success} = productList
+     const {data:productData} = productList
 
   
     return (
         <div>
             <div>
-                {success && productData.map((product, i) => <TrendingCategory key={`${product.category}-${product.id}-${i}`} TrendList={product} loading={loading} />)}
+                {productData && Array.isArray(productData) && productData.map((product: any, i: number) => <TrendingCategory key={`${product.category}-${product.id}-${i}`} TrendList={product} />)}
                 
             </div>
         </div>

@@ -1,5 +1,5 @@
 
-import { lazy, useCallback, useEffect, useState, useMemo } from 'react';
+import { lazy, useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { type ApiResponse, } from '../types/types';
 
@@ -110,7 +110,7 @@ const Home = () => {
       <ShowCase />
       {/* Show components immediately with loading states */}
       <Categories categories={list} loading={loading} error={error} />
-      <ProductShowCase productList={ProductList} loading={ProductLoading} error={ProductError} />
+      <ProductShowCase productList={ProductList as ApiResponse} loading={ProductLoading} error={ProductError} />
 
 
     </div>

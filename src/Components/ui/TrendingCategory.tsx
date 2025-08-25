@@ -5,7 +5,7 @@ import './TrendingCategory.css';
 import { Link } from 'react-router';
 
 
-const TrendingCategory = ({TrendList,loading }:{TrendList:any,loading:boolean}) => {
+const TrendingCategory = ({TrendList}:{TrendList:any}) => {
 
   let category=TrendList.category
   const scrollContainer = (direction:string) => {
@@ -77,7 +77,7 @@ const TrendingCategory = ({TrendList,loading }:{TrendList:any,loading:boolean}) 
           {TrendList.products.map((product:any) => (
             <div key={product.id} className="carousel-item">
               <Link to={`/shop/${category}/${product.name}/${product.id}`}>
-                <Product product={product} loading={loading} />
+                <Product product={product} />
               </Link>
             </div>
           ))}

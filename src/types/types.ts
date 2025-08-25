@@ -68,6 +68,17 @@ interface ApiResponse<T = any> {
   error?: string | null;
 }
 
+// Response state for components
+interface ResponseState {
+  data: any;
+  loading: boolean;
+  error: string | null;
+  success?: boolean;
+}
+
+// Product type alias for compatibility
+type ProductType = Product;
+
 // Specific API response types
 type ProductsApiResponse = ApiResponse<PaginatedProductsResponse>;
 type SingleProductApiResponse = ApiResponse<Product>;
@@ -101,7 +112,9 @@ export type {
   ProductsApiResponse,
   SingleProductApiResponse,
   CategoriesApiResponse,
-  AllApiResponses
+  AllApiResponses,
+  ResponseState,
+  ProductType
 };
 
 export {
@@ -109,3 +122,4 @@ export {
   isSingleProductResponse,
   isCategoriesResponse
 };
+{}

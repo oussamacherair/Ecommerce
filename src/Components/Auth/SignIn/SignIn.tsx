@@ -1,20 +1,11 @@
 
 import { 
-  AiOutlineEye, 
-  AiOutlineEyeInvisible, 
   AiOutlineMail, 
-  AiOutlineLock,
-  AiOutlineLoading3Quarters
+  AiOutlineLock
 } from 'react-icons/ai';
 import { 
   FcGoogle 
 } from 'react-icons/fc';
-import { 
-  FaFacebookF, 
-  FaTwitter, 
-  FaGithub, 
-  FaApple 
-} from 'react-icons/fa';
 import "./SignIn.css"
 
 const SignInPage = () => {

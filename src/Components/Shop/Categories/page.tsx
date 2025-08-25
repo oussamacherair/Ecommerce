@@ -1,7 +1,6 @@
 // Categories.jsx - Optimized with direct API calls
-import { useCallback, useEffect, useState, useMemo } from 'react';
-import axios from 'axios';
-import { type ApiResponse, type BaseCategory } from '../../../types/types';
+import { useMemo } from 'react';
+import { type ApiResponse, type Category } from '../../../types/types';
 import Categorie from './Categorie/page';
 import CategorieSkeleton from '../../ui/CategoryLoading';
 import "./Categories.css";
@@ -37,21 +36,15 @@ const Categories = ({ categories, loading, error }: { categories: ApiResponse | 
   }
 
 
-  const {success,data:categoriesList} = categories || {}
+  const {data:categoriesList} = categories || {}
 
-  if(!success){
-    return (
-      <div className="error-container" role="alert">
-        <p>Error loading categories: {error}</p>
-      </div>
-    );
-  }
+ 
   
 
   return (
     <div>
       <div className='Categories-container'>
-        {categoriesList?.map((category:BaseCategory, index:number) => (
+        {categoriesList && Array.isArray(categoriesList) && categoriesList.map((category:Category, index:number) => (
           <Link to={`/shop/${category.slug}`} key={`category-${index}`}>
             <Categorie
               key={`category-${index}`}

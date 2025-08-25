@@ -1,45 +1,23 @@
 import { useState } from 'react';
 import { 
-  FaStar, 
-  FaRegStar, 
   FaShoppingCart, 
   FaHeart, 
-  FaRegHeart,
-  FaBolt,
-  FaShippingFast 
+  FaRegHeart
 } from 'react-icons/fa';
 import './SimilarProduct.css';
 import Rating from './Rating';
 
-const SimilarProduct = ({product}) => {
+interface SimilarProductProps {
+  product: any;
+}
+
+const SimilarProduct = ({product}: SimilarProductProps) => {
 
   const [isWishlist, setIsWishlist] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Calculate discounted price
   const discountedPrice = product.price * (1 - product.discountPercentage / 100);
-
-  // Generate star rating
-  const generateStars = (rating) => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
-
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(<FaStar key={i} color="#ffc107" />);
-    }
-
-    if (hasHalfStar) {
-      stars.push(<FaStar key="half" color="#ffc107" style={{ opacity: 0.5 }} />);
-    }
-
-    const remainingStars = 5 - Math.ceil(rating);
-    for (let i = 0; i < remainingStars; i++) {
-      stars.push(<FaRegStar key={`empty-${i}`} color="#e2e8f0" />);
-    }
-
-    return stars;
-  };
 
   // Determine stock status
   const getStockStatus = () => {
@@ -57,11 +35,6 @@ const SimilarProduct = ({product}) => {
   const handleAddToCart = () => {
     console.log('Added to cart:', product.id);
     // Add your cart logic here
-  };
-
-  const handleBuyNow = () => {
-    console.log('Buy now:', product.id);
-    // Add your buy now logic here
   };
 
   const toggleWishlist = () => {
@@ -151,7 +124,7 @@ const SimilarProduct = ({product}) => {
 
         {product.tags && product.tags.length > 0 && (
           <div className="tags-container">
-            {product.tags.slice(0, 3).map((tag, index) => (
+            {product.tags.slice(0, 3).map((tag: string, index: number) => (
               <span key={index} className="tag">
                 {tag}
               </span>

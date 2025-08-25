@@ -1,7 +1,7 @@
 
-import type { BaseCategory } from '../../../../types/types'
+import type { Category } from '../../../../types/types'
 import "./category.css"
-const Categorie = ({ categorie }: { categorie: BaseCategory }) => {
+const Categorie = ({ categorie }: { categorie: Category }) => {
   return (
     <div className='cat-container'>
       

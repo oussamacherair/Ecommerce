@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  FaStar,
-  FaRegStar,
-  FaStarHalfAlt,
   FaShippingFast,
   FaShieldAlt,
   FaBox,
@@ -20,8 +17,6 @@ import { Link, useParams } from 'react-router';
 import { type ResponseState } from '../../../types/types';
 
 import SimilarProduct from '../../ui/SimilarProduct';
-import { type Review } from '../../../types/types';
-import { type Dimensions } from '../../../types/types';
 import Rating from '../../ui/Rating';
 
 const ProductPage: React.FC = () => {
@@ -32,7 +27,7 @@ const ProductPage: React.FC = () => {
     loading: true, 
     error: null 
   });
-  const { category, productname, productId } = useParams();
+  const { category, productId } = useParams();
 
   const getProduct = async () => {
     try {
@@ -154,7 +149,7 @@ const ProductPage: React.FC = () => {
             {/* Thumbnail Images */}
             {product.images.length > 1 && (
               <div className="thumbnail-container">
-                {product.images.map((image, index) => (
+                {product.images.map((image: string, index: number) => (
                   <img
                     key={index}
                     src={image}
@@ -273,7 +268,7 @@ const ProductPage: React.FC = () => {
         <div className="reviews-section">
           <h3>Customer Reviews</h3>
           <div className="reviews-list">
-            {product.reviews.map((review, index) => (
+            {product.reviews.map((review: any, index: number) => (
               <div key={index} className="review">
                 <div className="review-header">
                   <div className="review-rating">
@@ -296,7 +291,7 @@ const ProductPage: React.FC = () => {
           <h3>Similar Products</h3>
           <div className="similar-products-grid">
             {/* This section is ready for when you implement similar products */}
-            {similarProducts.map((product) => (
+            {similarProducts.map((product: any) => (
               <Link to={`/shop/${product.category}/${product.title}/${product.id}`}>
                 <SimilarProduct key={product.id} product={product} />
               </Link>

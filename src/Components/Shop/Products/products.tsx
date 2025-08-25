@@ -40,7 +40,7 @@ console.log(Products," products")
 
 
 
-    const { products, success } = Products?.data
+    const { products } = Products?.data
 
 
 
@@ -50,7 +50,7 @@ console.log(Products," products")
                 <>
 
                     {
-                        products.map((product) => (
+                        products.map((product: any) => (
                             <Link to={`/shop/${product.category}/${product.title}/${product.id}`} key={product.id}>   
                                 <Product key={product.id} product={product} />
                             </Link>

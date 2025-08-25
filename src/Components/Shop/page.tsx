@@ -92,7 +92,7 @@ const Shop = () => {
     <div className='shop-container'>
       <Filters category={categoryName} onCategoryChange={handleCategoryChange} />
 
-      <Products Products={products} loading={loading} error={error} />
+      <Products Products={products as ApiResponse} loading={loading} error={error} />
       {products && (
         <Pagination
           total={total}

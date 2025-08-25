@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { 
   FaShoppingCart, 
   FaBolt, 
   FaMapMarkerAlt, 
   FaInfoCircle, 
-  FaChevronDown,
   FaGift,
   FaShieldAlt,
   FaHeart
@@ -83,7 +82,7 @@ const SideCart = () => {
         <select 
           id="quantity" 
           value={quantity} 
-          onChange={(e) => setQuantity(e.target.value)}
+          onChange={(e) => setQuantity(Number(e.target.value))}
           className="quantity-select"
         >
           {[1,2,3,4,5,6,7].map(num => (
