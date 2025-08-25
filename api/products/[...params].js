@@ -1,4 +1,4 @@
-import { cache, apiCall, setCorsHeaders } from '../../lib/cache.js';
+import { cache, apiCall, setCorsHeaders } from '../../lib/cashe.js';
 
 export default async function handler(req, res) {
   setCorsHeaders(res);
