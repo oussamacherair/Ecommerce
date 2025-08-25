@@ -22,3 +22,6 @@ env
 *.njsproj
 *.sln
 *.sw?
+
+# Vercel
+.vercel
